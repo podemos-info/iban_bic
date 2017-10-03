@@ -16,6 +16,13 @@ module IbanBic
       desc: "Don't create bics table, use static bics."
     )
 
+    class_option(
+      :table_name,
+      type: :string,
+      default: "bics",
+      desc: "BICs table name, `bics` by default."
+    )
+
     desc "Generates an initializer file for configuring IbanBic." \
          " Also can generate a migration to add a bics table."
 
@@ -24,18 +31,12 @@ module IbanBic
     end
 
     def create_initializer
-      create_file "config/initializers/iban_bic.rb", <<~EOF
-        # frozen_string_literal: true
-        #
-        # IbanBic.configure do |config|
-        #   add [country_code] do |parts|
-        #     # Here test that parts (bank, branch, account and/or check) satifies national checks
-        #   end
-        #
-        #   config.iban_meta_path = "path/iban_meta.yml"
-        #   config.static_bics_path = "path/bics/"
-        # end
-      EOF
+      initializer_dir = File.expand_path("config/initializers")
+      if File.exist?(initializer_dir, "iban_bic.rb")
+        ::Kernel.warn "Initializer already exists"
+      else
+        template("iban_bic.rb.erb", "config/initializers/iban_bic.rb")
+      end
     end
 
     def self.next_migration_number(dirname)

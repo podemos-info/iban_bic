@@ -2,7 +2,6 @@
 
 require "iban_bic/version"
 require "iban_bic/railtie" if defined?(Rails)
-#require "iban_bic/engine" if defined?(Rails)
 require "iban_bic/configuration"
 require "iban_bic/iban_parts"
 require "iban_bic/models/bic"
@@ -29,7 +28,7 @@ module IbanBic
   def calculate_bic(iban)
     country = iban[0..1]
     parts = IbanParser.partser[country].match(iban)
-    return nil unless parts && parts[:bank]
+    return nil unless parts&.fetch(:bank, nil)
 
     if ActiveRecord::Base.connection.table_exists? "bics"
       Bic.find_by(country: country, bank_code: parts[:bank]).pluck(:bic)
