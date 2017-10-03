@@ -1,0 +1,9 @@
+language: ruby
+cache: bundler
+rvm:
+- 2.4.1
+env:
+- CI=true
+script:
+ - bundle exec rubocop -c .rubocop.yml
+ - bundle exec rspec
