@@ -25,10 +25,15 @@ module IbanBic
 
     def create_initializer
       create_file "config/initializers/iban_bic.rb", <<~EOF
-        # IbanBic.configure do
+        # frozen_string_literal: true
+        #
+        # IbanBic.configure do |config|
         #   add [country_code] do |parts|
         #     # Here test that parts (bank, branch, account and/or check) satifies national checks
         #   end
+        #
+        #   config.iban_meta_path = "path/iban_meta.yml"
+        #   config.static_bics_path = "path/bics/"
         # end
       EOF
     end
