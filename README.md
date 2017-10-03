@@ -7,8 +7,8 @@ When IBAN validation is not enough.
 [![Dependency Status](https://www.versioneye.com/user/projects/59d393190fb24f0046190d85/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59d393190fb24f0046190d85?style=flat)
 
 ## Features
-* IBAN validation
-* National account checks (currently only ES included, others countries can be added).
+* IBAN validation (`ActiveModel::EachValidator` and control digits calculator function)
+* National account digits control validation (currently only ES included, others countries can be added).
 * BICs mapping from IBAN bank code part: COUNTRY + BANK => BIC code
   * Currently, static data only includes some ES banks, PRs are welcomed.
 * Optional database model to allow apps to dynamically add new BICs mapping.
