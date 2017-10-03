@@ -2,7 +2,7 @@
 
 module IbanBic
   class Configuration
-    attr_accessor :iban_meta_path, :static_bics_path
+    attr_accessor :iban_meta_path, :static_bics_path, :bics_table_name
 
     def country_validators
       @country_validators ||= {}

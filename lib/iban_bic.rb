@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 require "iban_bic/version"
-require "iban_bic/railtie" if defined?(Rails)
 require "iban_bic/configuration"
 require "iban_bic/iban_parts"
-require "iban_bic/models/bic"
 
 module IbanBic
   def configuration
@@ -25,6 +23,10 @@ module IbanBic
     end .join.to_i % 97
   end
 
+  def valid_check?(iban)
+    calculate_check(iban) == 97
+  end
+
   def calculate_bic(iban)
     country = iban[0..1]
     parts = IbanParser.partser[country].match(iban)
@@ -37,7 +39,9 @@ module IbanBic
     end
   end
 
-  module_function :configuration, :configure, :calculate_check, :calculate_bic
+  module_function :configuration, :configure, :valid_check?, :calculate_check, :calculate_bic
+
+  autoload :Railtie, "iban_bic/railtie"
 end
 
 require "iban_bic/defaults"

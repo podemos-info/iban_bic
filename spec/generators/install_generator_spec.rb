@@ -112,40 +112,4 @@ RSpec.describe IbanBic::InstallGenerator, type: :generator do
       )
     end
   end
-
-  describe "don't override existing migration" do
-    before(:all) do
-      prepare_destination
-      run_generator %w(--bics-table-name different_name)
-      run_generator
-    end
-
-    it "does not override the created migration" do
-      expect(destination_root).to(
-        have_structure do
-          directory("db") do
-            directory("migrate") do
-              migration("create_bics") do
-                contains "create_table :different_name"
-              end
-            end
-          end
-        end
-      )
-    end
-
-    it "does not override the created initializer" do
-      expect(destination_root).to(
-        have_structure do
-          directory("config") do
-            directory("initializers") do
-              file("iban_bic.rb") do
-                contains "config.bics_table_name = \"different_name\""
-              end
-            end
-          end
-        end
-      )
-    end
-  end
 end

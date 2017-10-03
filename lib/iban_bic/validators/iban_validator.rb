@@ -7,7 +7,7 @@ module IbanBic
     def validate_each(record, attribute, value)
       iban_parts = IbanParts.instance.parse(value)
 
-      if !iban_parts || IbanBic.calculate_check(value) != 97
+      if !iban_parts || IbanBic.valid_check?(value)
         record.errors.add(attribute, :invalid)
       elsif !country_valid?(iban_parts)
         record.errors.add(attribute, :invalid_country)

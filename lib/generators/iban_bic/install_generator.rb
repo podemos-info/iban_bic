@@ -9,6 +9,7 @@ module IbanBic
     include ::Rails::Generators::Migration
 
     source_root File.expand_path("../templates", __FILE__)
+
     class_option(
       :with_static_bics,
       type: :boolean,
@@ -27,16 +28,11 @@ module IbanBic
          " Also can generate a migration to add a bics table."
 
     def create_migration_file
-      add_iban_bic_migration "create_bics" unless options.with_static_bics?
+      migration_template "create_bics.rb.erb", File.join("db", "migrate", "create_bics.rb") unless options.with_static_bics?
     end
 
     def create_initializer
-      initializer_dir = File.expand_path("config/initializers")
-      if File.exist?(File.join(initializer_dir, "iban_bic.rb"))
-        ::Kernel.warn "Initializer already exists"
-      else
-        template "iban_bic.rb.erb", "config/initializers/iban_bic.rb"
-      end
+      template "iban_bic.rb.erb", File.join("config", "initializers", "iban_bic.rb")
     end
 
     def self.next_migration_number(dirname)
@@ -49,17 +45,6 @@ module IbanBic
 
     def bics_table_name
       options.bics_table_name
-    end
-
-    protected
-
-    def add_iban_bic_migration(template)
-      migration_dir = File.expand_path("db/migrate")
-      if self.class.migration_exists?(migration_dir, template)
-        ::Kernel.warn "Migration already exists: #{template}"
-      else
-        migration_template "#{template}.rb.erb", "db/migrate/#{template}.rb"
-      end
     end
   end
 end
