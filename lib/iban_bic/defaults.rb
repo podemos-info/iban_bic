@@ -7,4 +7,5 @@ IbanBic.configure do |config|
   config.static_bics_path = File.expand_path("../../data/bics/", __dir__)
 
   config.bics_table_name = "bics"
+  config.use_static_bics = false
 end

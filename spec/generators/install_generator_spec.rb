@@ -37,7 +37,9 @@ RSpec.describe IbanBic::InstallGenerator, type: :generator do
         have_structure do
           directory("config") do
             directory("initializers") do
-              file("iban_bic.rb")
+              file("iban_bic.rb") do
+                contains "config.use_static_bics = false"
+              end
             end
           end
         end
@@ -68,7 +70,9 @@ RSpec.describe IbanBic::InstallGenerator, type: :generator do
         have_structure do
           directory("config") do
             directory("initializers") do
-              file("iban_bic.rb")
+              file("iban_bic.rb") do
+                contains "config.use_static_bics = true"
+              end
             end
           end
         end

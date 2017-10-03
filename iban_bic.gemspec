@@ -21,9 +21,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 5.1.4"
 
+  s.add_development_dependency "codecov"
+  s.add_development_dependency "generator_spec", "~> 0.9.3"
+  s.add_development_dependency "rubocop"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "generator_spec", "~> 0.9.3"
-  s.add_development_dependency "codecov"
-  s.add_development_dependency "rubocop"
 end

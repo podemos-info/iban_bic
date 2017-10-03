@@ -49,16 +49,15 @@ module IbanBic
     parts = parse(iban)
     return nil unless parts&.fetch(:bank, nil)
 
-    if ActiveRecord::Base.connected? && ActiveRecord::Base.connection.table_exists?("bics")
-      Bic.find_by(country: country, bank_code: parts[:bank]).pluck(:bic)
-    else
+    if configuration.static_bics?
       configuration.static_bics.dig(country, parts[:bank])
+    else
+      Bic.find_by(country: country, bank_code: parts[:bank])&.bic
     end
   end
 
   module_function :configuration, :configure, :parse, :valid_check?, :valid_country_check?, :calculate_check, :calculate_bic
-
-  autoload :Railtie, "iban_bic/railtie"
 end
 
+require "iban_bic/engine" if defined?(Rails::Engine)
 require "iban_bic/defaults"

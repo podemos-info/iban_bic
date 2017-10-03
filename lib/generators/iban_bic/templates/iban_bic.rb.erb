@@ -2,6 +2,7 @@
 #
 IbanBic.configure do |config|
   config.bics_table_name = "<%= bics_table_name %>"
+  config.use_static_bics = <%= static_bics? %>
 
   # add [country_code] do |parts|
   #   Here test that parts (bank, branch, account and/or check) satifies national checks

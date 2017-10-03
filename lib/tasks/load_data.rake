@@ -7,7 +7,9 @@ namespace :iban_bic do
 
     IbanBic.configuration.static_bics.each do |country, data|
       data.each do |bank_code, bic|
-        IbanBic::Bic.create country: country, bank_code: bank_code, bic: bic
+        Bic.find_or_create_by(country: country, bank_code: bank_code) do |new_bic|
+          new_bic.bic = bic
+        end
       end
     end
   end

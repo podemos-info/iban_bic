@@ -46,5 +46,9 @@ module IbanBic
     def bics_table_name
       options.bics_table_name
     end
+
+    def static_bics?
+      options.with_static_bics?
+    end
   end
 end
