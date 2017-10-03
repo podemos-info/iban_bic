@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-# This migration creates the `bics` table.
+# This migration creates the `<%= bics_table_name %>` table.
 class CreateBics < ActiveRecord::Migration<%= migration_version %>
   def change
-    create_table :bics do |t|
+    create_table :<%= bics_table_name %> do |t|
       t.string :country, null: false
       t.string :bank_code, null: false
       t.string :bic, null: false
     end
 
-    add_index :bics, [:country, :bank_code], unique: true
+    add_index :<%= bics_table_name %>, [:country, :bank_code], unique: true
   end
 end

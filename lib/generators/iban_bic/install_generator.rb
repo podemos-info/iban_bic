@@ -17,7 +17,7 @@ module IbanBic
     )
 
     class_option(
-      :table_name,
+      :bics_table_name,
       type: :string,
       default: "bics",
       desc: "BICs table name, `bics` by default."
@@ -32,15 +32,23 @@ module IbanBic
 
     def create_initializer
       initializer_dir = File.expand_path("config/initializers")
-      if File.exist?(initializer_dir, "iban_bic.rb")
+      if File.exist?(File.join(initializer_dir, "iban_bic.rb"))
         ::Kernel.warn "Initializer already exists"
       else
-        template("iban_bic.rb.erb", "config/initializers/iban_bic.rb")
+        template "iban_bic.rb.erb", "config/initializers/iban_bic.rb"
       end
     end
 
     def self.next_migration_number(dirname)
       ::ActiveRecord::Generators::Base.next_migration_number(dirname)
+    end
+
+    def migration_version
+      "[#{ActiveRecord::VERSION::MAJOR}.#{ActiveRecord::VERSION::MINOR}]"
+    end
+
+    def bics_table_name
+      options.bics_table_name
     end
 
     protected
@@ -50,17 +58,8 @@ module IbanBic
       if self.class.migration_exists?(migration_dir, template)
         ::Kernel.warn "Migration already exists: #{template}"
       else
-        migration_template(
-          "#{template}.rb.erb",
-          "db/migrate/#{template}.rb"
-        )
+        migration_template "#{template}.rb.erb", "db/migrate/#{template}.rb"
       end
-    end
-
-    private
-
-    def migration_version
-      "[#{ActiveRecord::VERSION::MAJOR}.#{ActiveRecord::VERSION::MINOR}]"
     end
   end
 end

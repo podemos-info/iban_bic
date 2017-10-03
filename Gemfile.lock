@@ -47,6 +47,7 @@ GEM
     arel (8.0.0)
     ast (2.3.0)
     builder (3.2.3)
+    byebug (9.1.0)
     codecov (0.1.10)
       json
       simplecov
@@ -162,6 +163,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  byebug
   codecov
   generator_spec (~> 0.9.3)
   iban_bic!

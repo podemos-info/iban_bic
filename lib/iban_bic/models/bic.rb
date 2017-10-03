@@ -2,6 +2,6 @@
 
 module IbanBic
   class Bic < ActiveRecord::Base
-    self.table_name = IbanBic.configuration.table_name
+    self.table_name = IbanBic.configuration.bics_table_name
   end
 end
