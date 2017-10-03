@@ -1,0 +1,186 @@
+AD:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{4})         (?<branch>\d{4})         (?<account>[A-Z0-9]{12})
+  tags:
+AL:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{3})         (?<branch>\d{4})         (?<check>\d)             (?<account>[A-Z0-9]{16})
+  tags:
+AT:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{5})         (?<account>\d{11})
+  tags: sepa
+AZ:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{4})         (?<account>[A-Z0-9]{20})
+  tags:
+BA:
+  parts: (?<iban_check>39)    (?<bank>\d{3})         (?<branch>\d{3})         (?<account>\d{8})        (?<check>\d{2})
+  tags:
+BE:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{3})         (?<account>\d{7})        (?<check>\d{2})
+  tags: sepa
+BG:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4})       (?<branch>\d{4})         \d{2}                    (?<account>[A-Z0-9]{8})
+  tags: sepa
+BH:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4})      (?<account>[A-Z0-9]{14})
+  tags:
+BR:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{8})         (?<branch>\d{5})         (?<account>\d{10})       [A-Z][A-Z0-9]
+  tags:
+CH:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{5})         (?<account>[A-Z0-9]{12})
+  tags: sepa
+CR:
+  parts: (?<iban_check>\d{2}) (?<bank>0\d{3})        (?<account>\d{14})
+  tags:
+CY:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{3})         (?<branch>\d{5})         (?<account>[A-Z0-9]{16})
+  tags: sepa
+CZ:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{4})         (?<branch>\d{6})         (?<account>\d{10})
+  tags: sepa
+DE:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{8})         (?<branch>\d{10})
+  tags: sepa
+DK:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{4})         (?<branch>\d{10})
+  tags: sepa
+DO:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4})      (?<account>\d{20})
+  tags:
+EE:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{2})         (?<branch>\d{2})         (?<account>\d{11})       (?<check>\d)
+  tags: sepa
+ES:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{4})         (?<branch>\d{4})         (?<check>\d{2})          (?<account>\d{10})
+  tags: sepa
+FI:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{6})         (?<account>\d{7})        (?<check>\d)
+  tags: sepa
+FO:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{4})         (?<account>\d{9})        (?<check>\d)
+  tags:
+FR:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{5})         (?<branch>\d{5})         (?<account>[A-Z0-9]{11}) (?<check>\d{2})
+  tags: sepa
+GB:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4})       (?<branch>\d{6})         (?<account>\d{8})
+  tags: sepa
+GE:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{2})      (?<account>\d{16})
+  tags:
+GI:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4})       (?<account>[A-Z0-9]{15})
+  tags: sepa
+GR:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{3})         (?<branch>\d{4})         (?<account>[A-Z0-9]{16})
+  tags: sepa
+GT:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z0-9]{4})   [A-Z0-9]{2}              [A-Z0-9]{2}              (?<account>[A-Z0-9]{16})
+  tags:
+HR:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{7})         (?<account>\d{10})
+  tags: sepa
+HU:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{3})         (?<branch>\d{4})         (?<check>\d)             (?<account>\d{15})       (?<check2>\d)
+  tags: sepa
+IE:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4})       (?<branch>\d{6})         (?<account>\d{8})
+  tags: sepa
+IL:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{3})         (?<branch>\d{3})         (?<account>\d{13})
+  tags:
+IS:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{4})         (?<branch>\d{2})         (?<account>\d{16})
+  tags: sepa
+IT:
+  parts: (?<iban_check>\d{2}) (?<check>[A-Z])        (?<bank>\d{5})           (?<branch>\d{5})         (?<account>[A-Z0-9]{12})
+  tags: sepa
+KW:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4})      (?<account>\d{22})
+  tags:
+KZ:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{3})         (?<account>[A-Z0-9]{13})
+  tags:
+LB:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{4})         (?<account>[A-Z0-9]{20})
+  tags:
+LI:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{5})         (?<account>[A-Z0-9]{12})
+  tags: sepa
+LT:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{5})         (?<account>\d{11})
+  tags: sepa
+LU:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{3})         (?<account>[A-Z0-9]{13})
+  tags: sepa
+LV:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4})       (?<account>[A-Z0-9]{13})
+  tags: sepa
+MC:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{5})         (?<branch>\d{5})         (?<account>[A-Z0-9]{11}) (?<check>\d{2})
+  tags: sepa
+MD:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{2})         (?<account>[A-Z0-9]{18})
+  tags:
+ME:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{3})         (?<account>\d{12})       (?<check>\d{2})
+  tags:
+MK:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{3})         (?<account>[A-Z0-9]{10}) (?<check>\d{2})
+  tags:
+MR:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{5})         (?<branch>\d{5})         (?<account>\d{11})       (?<check>\d{2})
+  tags:
+MT:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4})       (?<branch>\d{5})         (?<account>[A-Z0-9]{18})
+  tags: sepa
+MU:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4}\d{2}) (?<branch>\d{2})         (?<account>\d{12})       000[A-Z]{3}
+  tags:
+NL:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4})       (?<account>\d{10})
+  tags: sepa
+NO:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{4})         (?<account>\d{6})        (?<check>\d)
+  tags: sepa
+PK:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4})      (?<account>[A-Z0-9]{16})
+  tags:
+PL:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{3})         (?<branch>\d{4})         (?<check>\d)             (?<account>\d{16})  
+  tags: sepa
+PS:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z0-9]{4})   \d{9}                    (?<account>\d{12})
+  tags:
+PT:
+  parts: (?<iban_check>50)    (?<bank>\d{4})         (?<branch>\d{4})         (?<account>\d{11})       (?<check>\d{2})
+  tags: sepa
+RO:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4})       (?<account>[A-Z0-9]{16})
+  tags: sepa
+RS:
+  parts: (?<iban_check>35)    (?<bank>\d{3})         (?<account>\d{13})       (?<check>\d{2}) 
+  tags:
+SE:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{3})         (?<account>\d{17})
+  tags: sepa
+SI:
+  parts: (?<iban_check>56)    (?<bank>\d{2})         (?<branch>\d{3})         (?<account>\d{8})        (?<check>\d{2})
+  tags: sepa
+SK:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{4})         (?<branch>\d{6})         (?<account>\d{10})
+  tags: sepa
+SM:
+  parts: (?<iban_check>\d{2}) (?<check>[A-Z])        (?<bank>\d{5})           (?<branch>\d{5})         (?<account>[A-Z0-9]{12})
+  tags: sepa
+TN:
+  parts: (?<iban_check>59)    (?<bank>\d{2})         (?<branch>\d{3})         (?<account>\d{15})
+  tags:
+TR:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{5})         0                        (?<account>[A-Z0-9]{16})
+  tags: sepa
+VG:
+  parts: (?<iban_check>\d{2}) (?<bank>[A-Z]{4})      (?<account>\d{16})
+  tags:
+XK:
+  parts: (?<iban_check>\d{2}) (?<bank>\d{4})         (?<account>\d{12})
+  tags:

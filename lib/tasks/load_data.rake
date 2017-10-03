@@ -1,0 +1,14 @@
+# frozen_string_literal: true
+
+namespace :iban_bic do
+  desc "Load static data to the database"
+  task load_data: :environment do
+    require "iban_bic"
+
+    IbanBic.configuration.static_bics.each do |country, data|
+      data.each do |bank_code, bic|
+        IbanBic::Bic.create country: country, bank_code: bank_code, bic: bic
+      end
+    end
+  end
+end
