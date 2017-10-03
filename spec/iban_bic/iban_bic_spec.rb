@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require "spec_helper"
-require "iban_bic"
+require "rails_helper"
 
 RSpec.describe(::IbanBic) do
   let(:iban) { "ES#{iban_digits}00030000#{country_digits}0000000000" }
@@ -54,7 +53,7 @@ RSpec.describe(::IbanBic) do
     subject(:method) { IbanBic.calculate_bic(iban) }
 
     context "when using database entries" do
-      let!(:bic) { Bic.create(country: "ES", bank_code: "0003", bic: "BDEPESM1XXX") }
+      let!(:bic) { Bic.find_or_create_by(country: "ES", bank_code: "0003") { |new_bic| new_bic.bic = "BDEPESM1XXX" } }
       it { is_expected.to eq("BDEPESM1XXX") }
     end
 

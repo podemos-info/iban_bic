@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require "rails_helper"
 require "generator_spec/test_case"
 require File.expand_path("../../../lib/generators/iban_bic/install_generator", __FILE__)
 
