@@ -22,6 +22,7 @@ When IBAN validation is not enough.
     ```
 
 2. Update bundle
+
     ```bash
     $ bundle
     ```
@@ -30,14 +31,14 @@ When IBAN validation is not enough.
 
 3.1. Using BICs dynamic data from database
 
-    Add a `bics` table to your database and an initializer file for configuration:
+Add a `bics` table to your database and an initializer file for configuration:
 
     ```bash
     bundle exec rails generate iban_bic:install
     bundle exec rake db:migrate
     ```
 
-    Load static data to the created `bics` table:
+Load static data to the created `bics` table:
 
     ```bash
     bundle exec rake iban_bic:load_data
@@ -45,7 +46,7 @@ When IBAN validation is not enough.
 
 3.2. Using static data from YAML files
 
-    Create an initializer file for configuration:
+Create an initializer file for configuration:
   
     ```
     bundle exec rails generate iban_bic:install --with-static-data
