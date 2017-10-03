@@ -5,7 +5,7 @@ require "iban_bic"
 module IbanBic
   class IbanValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
-      iban_parts = IbanParts.instance.parse(value)
+      iban_parts = IbanBic.parse(value)
 
       if !iban_parts || IbanBic.valid_check?(value)
         record.errors.add(attribute, :invalid)

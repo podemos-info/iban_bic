@@ -2,7 +2,7 @@
 
 require "iban_bic/version"
 require "iban_bic/configuration"
-require "iban_bic/iban_parts"
+require "yaml"
 
 module IbanBic
   def configuration
@@ -13,12 +13,23 @@ module IbanBic
     configuration.instance_eval(&Proc.new)
   end
 
+  def parse(iban)
+    @parser ||= Hash[
+      ::YAML.load_file(configuration.iban_meta_path).map do |country, meta|
+        [country, /^(?<country>#{country})#{meta["parts"].delete(" ")}$/]
+      end
+    ].freeze
+
+    parts = @parser[iban[0..1]]&.match(iban)
+    parts ? ActiveSupport::HashWithIndifferentAccess[parts.names.zip(parts.captures)] : nil
+  end
+
   def calculate_check(iban)
     98 - "#{iban[4..-1]}#{iban[0..3]}".each_char.map do |char|
       case char
       when "0".."9" then char
       when "A".."Z" then (char.ord - 55).to_s
-      else raise("Invalid IBAN")
+      else raise ArgumentError, "Invalid IBAN format"
       end
     end .join.to_i % 97
   end
@@ -29,17 +40,17 @@ module IbanBic
 
   def calculate_bic(iban)
     country = iban[0..1]
-    parts = IbanParser.partser[country].match(iban)
+    parts = parse(iban)
     return nil unless parts&.fetch(:bank, nil)
 
-    if ActiveRecord::Base.connection.table_exists? "bics"
+    if ActiveRecord::Base.connected? && ActiveRecord::Base.connection.table_exists?("bics")
       Bic.find_by(country: country, bank_code: parts[:bank]).pluck(:bic)
     else
       configuration.static_bics.dig(country, parts[:bank])
     end
   end
 
-  module_function :configuration, :configure, :valid_check?, :calculate_check, :calculate_bic
+  module_function :configuration, :configure, :parse, :valid_check?, :calculate_check, :calculate_bic
 
   autoload :Railtie, "iban_bic/railtie"
 end
