@@ -4,13 +4,14 @@ require "spec_helper"
 require "iban_bic"
 
 RSpec.describe(::IbanBic) do
-  let(:iban) { "ES#{iban_digits}00030000300000000000" }
+  let(:iban) { "ES#{iban_digits}00030000#{country_digits}0000000000" }
   let(:iban_digits) { "87" }
+  let(:country_digits) { "30" }
 
   describe "#parse" do
     subject(:method) { IbanBic.parse(iban) }
 
-    it { is_expected.to include(country: "ES", bank: "0003", branch: "0000", check: "30", account: "0000000000") }
+    it { is_expected.to include(country: "ES", bank: "0003", branch: "0000", check: country_digits, account: "0000000000") }
   end
 
   describe "#valid_check?" do
@@ -53,5 +54,23 @@ RSpec.describe(::IbanBic) do
     subject(:method) { IbanBic.calculate_bic(iban) }
 
     it { is_expected.to eq("BDEPESM1XXX") }
+
+    context "when bank code is unknown" do
+      let(:iban) { "ES0000000000300000000000" }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
+  describe "#valid_country_check?" do
+    subject(:method) { IbanBic.valid_country_check?(iban) }
+
+    it { is_expected.to be_truthy }
+
+    context "when country control digits are wrong" do
+      let(:country_digits) { "00" }
+
+      it { is_expected.to be_falsey }
+    end
   end
 end

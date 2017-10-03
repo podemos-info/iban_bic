@@ -5,20 +5,13 @@ require "iban_bic"
 module IbanBic
   class IbanValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
-      iban_parts = IbanBic.parse(value)
-
-      if !iban_parts || IbanBic.valid_check?(value)
-        record.errors.add(attribute, :invalid)
-      elsif !country_valid?(iban_parts)
-        record.errors.add(attribute, :invalid_country)
+      if !IbanBic.parse(value)
+        record.errors.add(attribute, :invalid_format)
+      elsif !IbanBic.valid_check?(value)
+        record.errors.add(attribute, :invalid_check)
+      elsif !IbanBic.valid_country_check?(value)
+        record.errors.add(attribute, :invalid_country_check)
       end
-    end
-
-    private
-
-    def country_valid?(iban_parts)
-      validator = IbanBic.configuration.country_validators[iban_parts[:country]]
-      validator.nil? || validator.call(iban_parts)
     end
   end
 end

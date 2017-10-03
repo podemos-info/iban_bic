@@ -38,6 +38,12 @@ module IbanBic
     calculate_check(iban) == 97
   end
 
+  def valid_country_check?(iban)
+    parts = parse(iban)
+    validator = IbanBic.configuration.country_validators[parts[:country]]
+    validator.nil? || validator.call(parts)
+  end
+
   def calculate_bic(iban)
     country = iban[0..1]
     parts = parse(iban)
@@ -50,7 +56,7 @@ module IbanBic
     end
   end
 
-  module_function :configuration, :configure, :parse, :valid_check?, :calculate_check, :calculate_bic
+  module_function :configuration, :configure, :parse, :valid_check?, :valid_country_check?, :calculate_check, :calculate_bic
 
   autoload :Railtie, "iban_bic/railtie"
 end
