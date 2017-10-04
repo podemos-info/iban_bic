@@ -68,8 +68,9 @@ module IbanBic
 
   def dynamic_bics
     @dynamic_bics ||= begin
-      ret = Hash.new { |hash, key| hash[key] = {} }
+      ret = {}
       Bic.find_each do |bic|
+        ret[bic.country] = {} unless ret[bic.country]
         ret[bic.country][bic.bank_code] = bic.bic
       end
       ret.freeze
