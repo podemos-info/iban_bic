@@ -14,6 +14,7 @@ module ActiveModel
         elsif !IbanBic.valid_check?(value)
           record.errors.add(attribute, :invalid_check)
         elsif !IbanBic.valid_country_check?(value)
+
           record.errors.add(attribute, :invalid_country_check)
         end
       end

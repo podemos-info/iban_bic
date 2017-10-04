@@ -32,9 +32,14 @@ describe ActiveModel::Validations::IbanValidator do
   end
 
   context "when invalid country digits" do
-    let(:iban_digits) { "17" }
+    let(:iban_digits) { "07" }
     let(:country_digits) { "00" }
-    it { is_expected.to be_invalid }
+    it "iban is valid" do
+      expect(IbanBic.valid_check?(iban)).to be_truthy
+    end
+    it "but country digits not" do
+      is_expected.to be_invalid
+    end
   end
 
   context "when invalid format" do
