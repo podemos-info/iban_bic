@@ -16,6 +16,10 @@ module IbanBic
     parts ? ActiveSupport::HashWithIndifferentAccess[parts.names.zip(parts.captures)] : nil
   end
 
+  def has_tags?(iban, searched_tags)
+    (tags[iban[0..1]] & searched_tags).any?
+  end
+
   def calculate_check(iban)
     98 - "#{iban[4..-1]}#{iban[0..3]}".each_char.map do |char|
       case char
@@ -52,6 +56,14 @@ module IbanBic
     @parser ||= Hash[
       ::YAML.load_file(configuration.iban_meta_path).map do |country, meta|
         [country, /^(?<country>#{country})#{meta["parts"].delete(" ")}$/]
+      end
+    ].freeze
+  end
+
+  def tags
+    @tags ||= Hash[
+      ::YAML.load_file(configuration.iban_meta_path).map do |country, meta|
+        [country, meta["tags"]&.split&.map(&:to_sym) || []]
       end
     ].freeze
   end

@@ -7,6 +7,7 @@ describe ActiveModel::Validations::IbanValidator do
   subject(:validatable_model) { validatable.new(iban: iban) }
 
   let(:validatable) do
+    options = validator_options
     Class.new do
       def self.model_name
         ActiveModel::Name.new(self, nil, "Validatable")
@@ -17,12 +18,13 @@ describe ActiveModel::Validations::IbanValidator do
 
       attribute :iban
 
-      validates :iban, iban: true
+      validates :iban, iban: options
     end
   end
   let(:iban) { "ES#{iban_digits}00030000#{country_digits}0000000000" }
   let(:iban_digits) { "87" }
   let(:country_digits) { "30" }
+  let(:validator_options) { true }
 
   it { is_expected.to be_valid }
 
@@ -45,5 +47,16 @@ describe ActiveModel::Validations::IbanValidator do
   context "when invalid format" do
     let(:iban) { "3432" }
     it { is_expected.to be_invalid }
+  end
+
+  describe "when tags option is present" do
+    let(:validator_options) { { tags: tags } }
+    let(:tags) { [:sepa] }
+    it { is_expected.to be_valid }
+
+    context "when tag is not present for the country" do
+      let(:tags) { [:other] }
+      it { is_expected.to be_invalid }
+    end
   end
 end
