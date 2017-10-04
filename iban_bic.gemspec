@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.version = IbanBic::VERSION
   s.authors = ["Leonardo Diez"]
   s.email = ["leiodd@gmail.com"]
-  s.homepage = "https://github.info/podemos-info/iban_bic"
+  s.homepage = "https://github.com/podemos-info/iban_bic"
   s.summary = "IBAN and BIC tools for Rails applications"
   s.description = "When IBAN validation is not enough"
   s.license = "MIT"
