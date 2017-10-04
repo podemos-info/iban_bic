@@ -53,18 +53,19 @@ RSpec.describe(::IbanBic) do
     subject(:method) { IbanBic.calculate_bic(iban) }
 
     context "when using database entries" do
-      let!(:bic) do
+      before do
         new_bic = Bic.find_or_initialize_by(country: "ES", bank_code: "0003")
         new_bic.bic = "DIFFERENT"
         new_bic.save!
+        IbanBic.clear_cache
       end
       it { is_expected.to eq("DIFFERENT") }
     end
 
     context "when using static bics" do
       before { IbanBic.configuration.use_static_bics = true }
-      it { is_expected.to eq("BDEPESM1XXX") }
       after { IbanBic.configuration.use_static_bics = false }
+      it { is_expected.to eq("BDEPESM1XXX") }
     end
 
     context "when bank code is unknown" do

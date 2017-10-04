@@ -45,7 +45,7 @@ module IbanBic
   end
 
   def clear_cache
-    @parser = @static_bics = @bics = nil
+    @parser = @static_bics = @dynamic_bics = nil
   end
 
   def parser
