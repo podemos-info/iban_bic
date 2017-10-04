@@ -17,15 +17,15 @@ When IBAN validation is not enough.
 
 1. Add this line to your application's Gemfile
 
-    ```ruby
-    gem "iban_bic"
-    ```
+```ruby
+gem "iban_bic"
+```
 
 2. Update bundle
 
-    ```bash
-    $ bundle
-    ```
+```bash
+$ bundle
+```
 
 3. Run installer 
 
@@ -33,24 +33,24 @@ When IBAN validation is not enough.
 
 Add a `bics` table to your database and an initializer file for configuration:
 
-    ```bash
-    bundle exec rails generate iban_bic:install
-    bundle exec rake db:migrate
-    ```
+```bash
+$ bundle exec rails generate iban_bic:install
+$ bundle exec rake db:migrate
+```
 
 Load static data to the created `bics` table:
 
-    ```bash
-    bundle exec rake iban_bic:load_data
-    ```
+```bash
+$ bundle exec rake iban_bic:load_data
+```
 
 3.2. Using static data from YAML files
 
 Create an initializer file for configuration:
   
-    ```
-    bundle exec rails generate iban_bic:install --with-static-data
-    ```
+```bash
+$ bundle exec rails generate iban_bic:install --with-static-data
+```
 
 4. Customize initializer if needed, adding validations for new countries, or overriding YAML files.
 
