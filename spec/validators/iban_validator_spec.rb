@@ -32,6 +32,7 @@ describe ActiveModel::Validations::IbanValidator do
   end
 
   context "when invalid country digits" do
+    let(:iban_digits) { "17" }
     let(:country_digits) { "00" }
     it { is_expected.to be_invalid }
   end
