@@ -19,12 +19,12 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{data,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "rails", "~> 5.1.4"
+  s.add_dependency "rails", "~> 5.1"
 
-  s.add_development_dependency "codecov"
+  s.add_development_dependency "codecov", "~> 0.1"
   s.add_development_dependency "generator_spec", "~> 0.9.3"
-  s.add_development_dependency "rubocop"
-  s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "virtus"
+  s.add_development_dependency "rubocop", "~> 0.50"
+  s.add_development_dependency "rspec-rails", "~> 3.6"
+  s.add_development_dependency "sqlite3", "~> 1.3"
+  s.add_development_dependency "virtus", "~> 1.0"
 end

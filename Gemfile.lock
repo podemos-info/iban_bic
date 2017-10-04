@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     iban_bic (0.1.0)
-      rails (~> 5.1.4)
+      rails (~> 5.1)
 
 GEM
   remote: https://rubygems.org/
@@ -179,13 +179,13 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  codecov
+  codecov (~> 0.1)
   generator_spec (~> 0.9.3)
   iban_bic!
-  rspec-rails
-  rubocop
-  sqlite3
-  virtus
+  rspec-rails (~> 3.6)
+  rubocop (~> 0.50)
+  sqlite3 (~> 1.3)
+  virtus (~> 1.0)
 
 BUNDLED WITH
    1.15.1
