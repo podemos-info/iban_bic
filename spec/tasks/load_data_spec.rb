@@ -6,6 +6,7 @@ describe "rake iban_bic:load_data" do
   before do
     Bic.delete_all
     IbanBic.configuration.static_bics_path = File.expand_path("../data/bics/", __dir__)
+    IbanBic.clear_cache
   end
 
   it "preloads the Rails environment" do

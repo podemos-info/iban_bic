@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-#
+
 IbanBic.configure do |config|
   config.bics_table_name = "<%= bics_table_name %>"
   config.use_static_bics = <%= static_bics? %>
@@ -7,7 +7,7 @@ IbanBic.configure do |config|
   # add [country_code] do |parts|
   #   Here test that parts (bank, branch, account and/or check) satifies national checks
   # end
-  #
+
   # config.iban_meta_path = "path/iban_meta.yml"
   # config.static_bics_path = "path/bics/"
 end
