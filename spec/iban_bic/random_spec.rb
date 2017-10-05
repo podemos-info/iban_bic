@@ -37,14 +37,14 @@ RSpec.describe(::IbanBic) do
     end
 
     context "when not_tags are given" do
-      let(:params) { { not_tags: [:sepa] } }
+      let(:params) { { not_tags: [:fixed_iban_check] } }
 
       it "returns a valid IBAN" do
         expect(IbanBic.valid?(subject)).to be_truthy
       end
 
       it "returns a valid IBAN from a country without that tags" do
-        expect(IbanBic.has_tags?(subject, [:sepa])).to be_falsey
+        expect(IbanBic.has_tags?(subject, [:fixed_iban_check])).to be_falsey
       end
     end
   end

@@ -73,6 +73,8 @@ validates :iban, iban: { tags: [:sepa] }
  => "IL317532867920826062774"
 ```
 
+Note: It can't generate a valid IBAN code for some countries where iban check digits are fixed if validation code for that country is not available.
+
 ## Installation
 
 1. Add this line to your application's Gemfile
