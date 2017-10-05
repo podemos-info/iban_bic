@@ -1,6 +1,7 @@
 # IBAN + BIC
 When IBAN validation is not enough.
 
+[![Gem](https://img.shields.io/gem/v/iban_bic.svg)](https://rubygems.org/gems/iban_bic)
 [![Travis](https://img.shields.io/travis/podemos-info/iban_bic/master.svg)](https://travis-ci.org/podemos-info/iban_bic)
 [![Codecov](https://img.shields.io/codecov/c/github/podemos-info/iban_bic.svg)](https://codecov.io/gh/podemos-info/iban_bic)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/podemos-info/iban_bic.svg)](https://scrutinizer-ci.com/g/podemos-info/iban_bic/)
