@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module IbanBic
+  @cached_variables = []
+
   module_function
 
   def country_validators
@@ -62,6 +64,10 @@ module IbanBic
     end .join.to_i % 97
   end
 
+  def valid?(iban)
+    valid_check?(iban) && valid_country_check?(iban)
+  end
+
   def valid_check?(iban)
     calculate_check(iban) == 97
   end
@@ -88,7 +94,8 @@ module IbanBic
   end
 
   def clear_cache
-    @iban_meta = @parser = @static_bics = @dynamic_bics = nil
+    @cached_variables.each { |variable| instance_variable_set(variable, nil) }
+    @cached_variables.clear
   end
 
   def iban_meta
@@ -96,19 +103,25 @@ module IbanBic
   end
 
   def parser
-    @parser ||= Hash[
-      iban_meta.map do |country, meta|
-        [country, /^(?<country>#{country})#{meta["parts"].delete(" ")}$/]
-      end
-    ].freeze
+    @parser ||= begin
+      @cached_variables << :@parser
+      Hash[
+        iban_meta.map do |country, meta|
+          [country, /^(?<country>#{country})#{meta["parts"].delete(" ")}$/]
+        end
+      ].freeze
+    end
   end
 
   def tags
-    @tags ||= Hash[
-      iban_meta.map do |country, meta|
-        [country, meta["tags"]&.split&.map(&:to_sym) || []]
-      end
-    ].freeze
+    @tags ||= begin
+      @cached_variables << :@tags
+      Hash[
+        iban_meta.map do |country, meta|
+          [country, meta["tags"]&.split&.map(&:to_sym) || []]
+        end
+      ].freeze
+    end
   end
 
   def bics
@@ -116,13 +129,17 @@ module IbanBic
   end
 
   def static_bics
-    @static_bics ||= Hash[Dir.glob(File.join(configuration.static_bics_path, "*.yml")).map do |file|
-      [File.basename(file).delete(".yml").upcase, YAML.load_file(file)]
-    end].freeze
+    @static_bics ||= begin
+      @cached_variables << :@static_bics
+      Hash[Dir.glob(File.join(configuration.static_bics_path, "*.yml")).map do |file|
+        [File.basename(file).delete(".yml").upcase, YAML.load_file(file)]
+      end].freeze
+    end
   end
 
   def dynamic_bics
     @dynamic_bics ||= begin
+      @cached_variables << :@dynamic_bics
       ret = {}
       Bic.find_each do |bic|
         ret[bic.country] = {} unless ret[bic.country]

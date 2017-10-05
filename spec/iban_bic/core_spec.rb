@@ -7,24 +7,6 @@ RSpec.describe(::IbanBic) do
   let(:iban_digits) { "87" }
   let(:country_digits) { "30" }
 
-  describe "#parse" do
-    subject(:method) { IbanBic.parse(iban) }
-
-    it { is_expected.to include(country: "ES", bank: "0003", branch: "0000", check: country_digits, account: "0000000000") }
-  end
-
-  describe "#valid_check?" do
-    subject(:method) { IbanBic.valid_check?(iban) }
-
-    it { is_expected.to be_truthy }
-
-    context "when iban is invalid" do
-      let(:iban_digits) { "00" }
-
-      it { is_expected.to be_falsey }
-    end
-  end
-
   describe "#calculate_check" do
     subject(:method) { IbanBic.calculate_check(iban) }
 
@@ -72,18 +54,6 @@ RSpec.describe(::IbanBic) do
       let(:iban) { "ES0000000000300000000000" }
 
       it { is_expected.to be_nil }
-    end
-  end
-
-  describe "#valid_country_check?" do
-    subject(:method) { IbanBic.valid_country_check?(iban) }
-
-    it { is_expected.to be_truthy }
-
-    context "when country control digits are wrong" do
-      let(:country_digits) { "12" }
-
-      it { is_expected.to be_falsey }
     end
   end
 
@@ -144,6 +114,54 @@ RSpec.describe(::IbanBic) do
       let(:iban) { "ES+" }
 
       it { is_expected.to be_nil }
+    end
+  end
+
+  describe "#parse" do
+    subject(:method) { IbanBic.parse(iban) }
+
+    it { is_expected.to include(country: "ES", bank: "0003", branch: "0000", check: country_digits, account: "0000000000") }
+  end
+
+  describe "#valid?" do
+    subject(:method) { IbanBic.valid?(iban) }
+
+    it { is_expected.to be_truthy }
+
+    context "when iban is invalid" do
+      let(:iban_digits) { "00" }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "when country control digits are wrong" do
+      let(:country_digits) { "12" }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#valid_check?" do
+    subject(:method) { IbanBic.valid_check?(iban) }
+
+    it { is_expected.to be_truthy }
+
+    context "when iban is invalid" do
+      let(:iban_digits) { "00" }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#valid_country_check?" do
+    subject(:method) { IbanBic.valid_country_check?(iban) }
+
+    it { is_expected.to be_truthy }
+
+    context "when country control digits are wrong" do
+      let(:country_digits) { "12" }
+
+      it { is_expected.to be_falsey }
     end
   end
 end

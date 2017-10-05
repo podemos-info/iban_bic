@@ -20,16 +20,13 @@ module IbanBic
   end
 
   def random_generator
-    @random_generator ||= Hash[
-      iban_meta.map do |country, meta|
-        [country, /^#{country}#{meta["parts"].delete(" ").gsub(/\(\?\<\w+\>([^\)]*)\)/, "\\1")}$/]
-      end
-    ].freeze
-  end
-
-  alias _clear_cache clear_cache
-  def clear_cache
-    _clear_cache
-    @random_generator = nil
+    @random_generator ||= begin
+      @cached_variables << :@random_generator
+      Hash[
+        iban_meta.map do |country, meta|
+          [country, /^#{country}#{meta["parts"].delete(" ").gsub(/\(\?\<\w+\>([^\)]*)\)/, "\\1")}$/]
+        end
+      ].freeze
+    end
   end
 end
