@@ -129,7 +129,7 @@ $ bundle exec rails generate iban_bic:install --with-static-data
 * First version.
 
 ## Contributing
-Contribution directions go here.
+Issues and PRs are welcomed.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
