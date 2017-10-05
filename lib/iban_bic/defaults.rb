@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "iban_bic/validators/countries/es.rb"
+require "iban_bic/validators/countries/pt.rb"
 
 IbanBic.configure do |config|
   config.iban_meta_path = File.expand_path("../../data/iban_meta.yml", __dir__)

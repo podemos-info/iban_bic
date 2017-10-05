@@ -13,3 +13,4 @@ coverage
 .byebug_history
 
 spec/examples.txt
+spec/test_app/.byebug_history

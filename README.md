@@ -7,12 +7,13 @@ When IBAN validation is not enough.
 [![Dependency Status](https://www.versioneye.com/user/projects/59d393190fb24f0046190d85/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59d393190fb24f0046190d85?style=flat)
 
 ## Features
-* IBAN validation (`ActiveModel::EachValidator` and control digits calculator function).
-* National account digits control validation (currently only ES included, others countries can be added).
-* Associated tags to countries (currently only SEPA tag is available).
+* IBAN validation (`ActiveModel::EachValidator` and control digits calculator function) and fixing.
+* National account digits control validation (currently only ES and PT are included, others countries can be added).
+* Associated tags to countries (currently only SEPA and FIXED_CHECK tags are available).
 * BICs mapping from IBAN bank code part: COUNTRY + BANK => BIC code.
   * Currently, static data only includes some ES banks, PRs are welcomed.
 * Optional database model to allow apps to dynamically add new BICs mapping.
+* Random IBANs generator
 
 ## Usage
 
@@ -42,11 +43,33 @@ validates :iban, iban: { tags: [:sepa] }
 => {"country"=>"ES", "iban_check"=>"87", "bank"=>"0003", "branch"=>"0000", "check"=>"30", "account"=>"0000000000"}
 ```
 
-4. BIC calculation (bank code must be in the static file or in the database)
+4. IBAN fixing (IBAN control digits and country control digits, if that code is available)
 
 ```ruby
-2.4.1 :009 > IbanBic.calculate_bic("ES8700030000300000000000")
+2.4.1 :001 > IbanBic.fix("ES0000030000200000000000")
+ => "ES8700030000300000000000"
+```
+
+5. BIC calculation (bank code must be in the static file or in the database)
+
+```ruby
+2.4.1 :001 > IbanBic.calculate_bic("ES8700030000300000000000")
  => "BDEPESM1XXX"
+```
+
+6. Random IBAN generation
+
+```ruby
+2.4.1 :001 > require "iban_bic/random"
+ => true
+2.4.1 :002 > IbanBic.random_iban
+ => "MU52BOIR2768144336487102000AWQ"
+2.4.1 :003 > IbanBic.random_iban country: "ES"
+ => "ES6111051493192369291292"
+2.4.1 :004 > IbanBic.random_iban tags: [:sepa]
+ => "FI5584518206233159"
+2.4.1 :005 > IbanBic.random_iban not_tags: [:sepa]
+ => "IL317532867920826062774"
 ```
 
 ## Installation
@@ -90,9 +113,17 @@ $ bundle exec rails generate iban_bic:install --with-static-data
 
 4. Customize initializer if needed, adding validations for new countries, or overriding YAML files.
 
-## TO-DO
+## Changelog
 
-* Faker data generation
+#### 1.0.0
+
+* Added IBAN fixing and random IBAN generator.
+
+* Changed country checks, they must change check parts to generate the correct IBAN. Comparison against the original IBAN is made by the caller.
+
+#### 0.1.0
+
+* First version.
 
 ## Contributing
 Contribution directions go here.

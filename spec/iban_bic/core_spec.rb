@@ -81,9 +81,69 @@ RSpec.describe(::IbanBic) do
     it { is_expected.to be_truthy }
 
     context "when country control digits are wrong" do
-      let(:country_digits) { "00" }
+      let(:country_digits) { "12" }
 
       it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#fix" do
+    subject(:method) { IbanBic.fix(iban) }
+    let(:correct_iban) { "ES8700030000300000000000" }
+
+    it { is_expected.to eq(correct_iban) }
+
+    context "when control digits are wrong" do
+      let(:iban_digits) { "15" }
+
+      it { is_expected.to eq(correct_iban) }
+    end
+
+    context "when country control digits are wrong" do
+      let(:country_digits) { "32" }
+
+      it { is_expected.to eq(correct_iban) }
+    end
+
+    context "when both control digits are wrong" do
+      let(:iban_digits) { "15" }
+      let(:country_digits) { "32" }
+
+      it { is_expected.to eq(correct_iban) }
+    end
+
+    context "when country has fixed iban check digits" do
+      let(:iban) { "PT#{iban_digits}0000000000000000000#{country_digits}" }
+      let(:correct_iban) { "PT50000000000000000000098" }
+      let(:iban_digits) { "50" }
+      let(:country_digits) { "98" }
+
+      it { is_expected.to eq(correct_iban) }
+
+      context "when control digits are wrong" do
+        let(:iban_digits) { "42" }
+
+        it { is_expected.to eq(correct_iban) }
+      end
+
+      context "when country control digits are wrong" do
+        let(:country_digits) { "17" }
+
+        it { is_expected.to eq(correct_iban) }
+      end
+
+      context "when both control digits are wrong" do
+        let(:iban_digits) { "41" }
+        let(:country_digits) { "17" }
+
+        it { is_expected.to eq(correct_iban) }
+      end
+    end
+
+    context "when iban format is invalid" do
+      let(:iban) { "ES+" }
+
+      it { is_expected.to be_nil }
     end
   end
 end

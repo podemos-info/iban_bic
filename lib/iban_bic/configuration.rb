@@ -4,12 +4,8 @@ module IbanBic
   class Configuration
     attr_accessor :iban_meta_path, :use_static_bics, :bics_table_name, :static_bics_path
 
-    def country_validators
-      @country_validators ||= {}
-    end
-
     def add(country)
-      country_validators[country] = Proc.new
+      IbanBic.country_validators[country] = Proc.new
     end
 
     def static_bics?

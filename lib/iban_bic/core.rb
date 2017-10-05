@@ -3,6 +3,10 @@
 module IbanBic
   module_function
 
+  def country_validators
+    @country_validators ||= {}
+  end
+
   def configuration
     @configuration ||= Configuration.new
   end
@@ -14,6 +18,34 @@ module IbanBic
   def parse(iban)
     parts = parser[iban[0..1]]&.match(iban)
     parts ? ActiveSupport::HashWithIndifferentAccess[parts.names.zip(parts.captures)] : nil
+  end
+
+  def fix(iban)
+    # Fixed check IBAN parts (countries where IBAN check is always the same) must be fixed before parsing
+    iban, fixed_iban_check = fix_fixed_iban_check(iban)
+
+    parts = parse(iban)
+    return unless parts
+
+    iban = calculate_valid_country_check_iban(iban)
+    iban = fix_iban_check(iban) unless fixed_iban_check
+
+    iban
+  end
+
+  def fix_fixed_iban_check(iban)
+    return [iban, false] unless tags[iban[0..1]].member?(:fixed_iban_check)
+
+    result = iban.dup
+    result[2..3] = /\(\?\<iban_check>([^\)]*)\)/.match(iban_meta[iban[0..1]]["parts"])[1]
+    [result, true]
+  end
+
+  def fix_iban_check(iban)
+    result = iban.dup
+    result[2..3] = "00"
+    result[2..3] = calculate_check(result).to_s.rjust(2, "0")
+    result.freeze
   end
 
   def has_tags?(iban, searched_tags)
@@ -34,10 +66,17 @@ module IbanBic
     calculate_check(iban) == 97
   end
 
-  def valid_country_check?(iban)
+  def calculate_valid_country_check_iban(iban)
+    validator = country_validators[iban[0..1]]
+    return iban unless validator
+
     parts = parse(iban)
-    validator = IbanBic.configuration.country_validators[parts[:country]]
-    validator.nil? || validator.call(parts)
+    validator.call(parts)
+    parts.values.join
+  end
+
+  def valid_country_check?(iban)
+    calculate_valid_country_check_iban(iban) == iban
   end
 
   def calculate_bic(iban)
@@ -49,12 +88,16 @@ module IbanBic
   end
 
   def clear_cache
-    @parser = @static_bics = @dynamic_bics = nil
+    @iban_meta = @parser = @static_bics = @dynamic_bics = nil
+  end
+
+  def iban_meta
+    @iban_meta ||= ::YAML.load_file(configuration.iban_meta_path)
   end
 
   def parser
     @parser ||= Hash[
-      ::YAML.load_file(configuration.iban_meta_path).map do |country, meta|
+      iban_meta.map do |country, meta|
         [country, /^(?<country>#{country})#{meta["parts"].delete(" ")}$/]
       end
     ].freeze
@@ -62,7 +105,7 @@ module IbanBic
 
   def tags
     @tags ||= Hash[
-      ::YAML.load_file(configuration.iban_meta_path).map do |country, meta|
+      iban_meta.map do |country, meta|
         [country, meta["tags"]&.split&.map(&:to_sym) || []]
       end
     ].freeze
