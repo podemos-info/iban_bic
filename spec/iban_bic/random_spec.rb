@@ -24,15 +24,15 @@ RSpec.describe(::IbanBic) do
       end
     end
 
-    context "when tags are given" do
-      let(:params) { { tags: [:sepa] } }
+    context "when a country code with fixed IBAN check digits is given" do
+      let(:params) { { country: "PT" } }
 
       it "returns a valid IBAN" do
         expect(IbanBic.valid?(subject)).to be_truthy
       end
 
-      it "returns a valid IBAN from a country with that tags" do
-        expect(IbanBic.has_tags?(subject, [:sepa])).to be_truthy
+      it "returns a valid IBAN from the country" do
+        expect(subject[0..1]).to eq("PT")
       end
     end
 
@@ -45,6 +45,18 @@ RSpec.describe(::IbanBic) do
 
       it "returns a valid IBAN from a country without that tags" do
         expect(IbanBic.has_tags?(subject, [:fixed_iban_check])).to be_falsey
+      end
+    end
+
+    context "when tags are given" do
+      let(:params) { { tags: [:sepa], not_tags: [:fixed_iban_check] } } # not fixed_iban_check is needed, because it can't generate an IBAN with fixed check for some countries
+
+      it "returns a valid IBAN" do
+        expect(IbanBic.valid?(subject)).to be_truthy
+      end
+
+      it "returns a valid IBAN from a country with that tags" do
+        expect(IbanBic.has_tags?(subject, [:sepa])).to be_truthy
       end
     end
   end
