@@ -118,6 +118,10 @@ $ bundle exec rails generate iban_bic:install --with-static-data
 
 ## Changelog
 
+#### 1.0.1
+
+* Added presence validations in BIC model
+
 #### 1.0.0
 
 * Added IBAN fixing and random IBAN generator.
