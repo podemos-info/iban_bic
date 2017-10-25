@@ -58,7 +58,14 @@ validates :iban, iban: { tags: [:sepa] }
  => "BDEPESM1XXX"
 ```
 
-6. Random IBAN generation
+6. Pattern generation for SQL LIKE queries.
+
+```ruby
+2.4.1 :001 > IbanBic.like_pattern("ES8700030000300000000000", :country, :bank)
+ => "ES__0003________________"
+```
+
+7. Random IBAN generation
 
 ```ruby
 2.4.1 :001 > require "iban_bic/random"
@@ -117,6 +124,10 @@ $ bundle exec rails generate iban_bic:install --with-static-data
 4. Customize initializer if needed, adding validations for new countries, or overriding YAML files.
 
 ## Changelog
+
+#### 1.1.0
+
+* Added `like_pattern` method.
 
 #### 1.0.1
 

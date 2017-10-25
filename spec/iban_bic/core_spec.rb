@@ -117,6 +117,26 @@ RSpec.describe(::IbanBic) do
     end
   end
 
+  describe "#has_tags?" do
+    subject(:method) { IbanBic.has_tags?(iban, tags) }
+    let(:tags) { [:sepa] }
+
+    it { is_expected.to be_truthy }
+
+    context "when the country does not have the tags" do
+      let(:tags) { [:fixed_iban_check] }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#like_pattern" do
+    subject(:method) { IbanBic.like_pattern(iban, *parts) }
+    let(:parts) { [:bank, :check] }
+
+    it { is_expected.to eq("____0003____#{country_digits}__________") }
+  end
+
   describe "#parse" do
     subject(:method) { IbanBic.parse(iban) }
 
