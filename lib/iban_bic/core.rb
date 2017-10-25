@@ -95,7 +95,7 @@ module IbanBic
 
   def like_pattern(iban, *keep_parts)
     parts = IbanBic.parse(iban)
-    parts.map {|part, value| keep_parts.include?(part.to_sym) ? value : value.tr("^_","_") } .join
+    parts.map { |part, value| keep_parts.include?(part.to_sym) ? value : value.tr("^_", "_") } .join
   end
 
   def clear_cache
