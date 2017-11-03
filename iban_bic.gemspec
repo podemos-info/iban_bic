@@ -24,8 +24,8 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "codecov", "~> 0.1"
   s.add_development_dependency "generator_spec", "~> 0.9.3"
-  s.add_development_dependency "rubocop", "~> 0.50"
   s.add_development_dependency "rspec-rails", "~> 3.6"
+  s.add_development_dependency "rubocop", "~> 0.50"
   s.add_development_dependency "sqlite3", "~> 1.3"
   s.add_development_dependency "virtus", "~> 1.0"
 end
