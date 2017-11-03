@@ -129,6 +129,7 @@ $ bundle exec rails generate iban_bic:install --with-static-data
 #### 1.2.0
 
 * Added `like_pattern_from_parts` method. Not a very performant version.
+* Fixed portuguese IBAN validation.
 
 #### 1.1.0
 
