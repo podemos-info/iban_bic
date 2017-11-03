@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "regexp-examples"
-
 module IbanBic
   module_function
 

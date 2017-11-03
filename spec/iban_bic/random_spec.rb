@@ -6,7 +6,7 @@ require "iban_bic/random"
 RSpec.describe(::IbanBic) do
   describe "#random_iban" do
     subject(:method) { IbanBic.random_iban params }
-    let(:params) { {} }
+    let(:params) { { country: "ES" } }
 
     it "returns a valid IBAN" do
       expect(IbanBic.valid?(subject)).to be_truthy

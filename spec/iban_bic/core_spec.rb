@@ -137,6 +137,12 @@ RSpec.describe(::IbanBic) do
     it { is_expected.to eq("____0003____#{country_digits}__________") }
   end
 
+  describe "#like_pattern_from_parts" do
+    subject(:method) { IbanBic.like_pattern_from_parts(country: "ES", bank: "0003") }
+
+    it { is_expected.to eq("ES__0003________________") }
+  end
+
   describe "#parse" do
     subject(:method) { IbanBic.parse(iban) }
 

@@ -63,6 +63,8 @@ validates :iban, iban: { tags: [:sepa] }
 ```ruby
 2.4.1 :001 > IbanBic.like_pattern("ES8700030000300000000000", :country, :bank)
  => "ES__0003________________"
+2.4.1 :002 > IbanBic.like_pattern_from_parts(country: "ES", bank: "0003")
+ => "ES__0003________________"
 ```
 
 7. Random IBAN generation
@@ -124,6 +126,10 @@ $ bundle exec rails generate iban_bic:install --with-static-data
 4. Customize initializer if needed, adding validations for new countries, or overriding YAML files.
 
 ## Changelog
+#### 1.2.0
+
+* Added `like_pattern_from_parts` method. Not a very performant version.
+* Fixed portuguese IBAN validation.
 
 #### 1.1.0
 
