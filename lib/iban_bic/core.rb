@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "regexp-examples"
+
 module IbanBic
   @cached_variables = []
 
@@ -96,6 +98,13 @@ module IbanBic
   def like_pattern(iban, *keep_parts)
     parts = IbanBic.parse(iban)
     parts.map { |part, value| keep_parts.include?(part.to_sym) ? value : value.tr("^_", "_") } .join
+  end
+
+  def like_pattern_from_parts(country:, **parts)
+    ia_parts = parts.with_indifferent_access
+    parser[country].to_s.scan(/\(?\<([^\>]+)\>([^\)]*)\)/).map do |part, regex|
+      (part=="country" && country) || ia_parts[part] || Regexp.new(regex).examples.first.tr("^_", "_")
+    end.join
   end
 
   def clear_cache
