@@ -37,11 +37,11 @@ RSpec.describe(::IbanBic) do
     context "when using database entries" do
       before do
         new_bic = Bic.find_or_initialize_by(country: "ES", bank_code: "0003")
-        new_bic.bic = "DIFFERENT"
+        new_bic.bic = "ABCDESMM"
         new_bic.save!
         IbanBic.clear_cache
       end
-      it { is_expected.to eq("DIFFERENT") }
+      it { is_expected.to eq("ABCDESMM") }
     end
 
     context "when using static bics" do
