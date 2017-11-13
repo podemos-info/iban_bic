@@ -126,6 +126,10 @@ $ bundle exec rails generate iban_bic:install --with-static-data
 4. Customize initializer if needed, adding validations for new countries, or overriding YAML files.
 
 ## Changelog
+#### 1.3.0
+
+* Added BIC format validation in BIC model.
+
 #### 1.2.0
 
 * Added `like_pattern_from_parts` method. Not a very performant version.
@@ -137,7 +141,7 @@ $ bundle exec rails generate iban_bic:install --with-static-data
 
 #### 1.0.1
 
-* Added presence validations in BIC model
+* Added presence validations in BIC model.
 
 #### 1.0.0
 
