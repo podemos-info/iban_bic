@@ -98,7 +98,7 @@ gem "iban_bic"
 $ bundle
 ```
 
-3. If you will use this gem for BIC calculations, choose from any of the following two options to run the installer:
+3. If you will use this gem for BIC calculations or want to add additional country control codes validations, choose from any of the following two options to run the installer:
 
 3.a. Using BICs dynamic data from database
 
