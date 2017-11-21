@@ -98,7 +98,7 @@ gem "iban_bic"
 $ bundle
 ```
 
-3. Run installer 
+3. If you will use this gem for BIC calculations, choose from any of the following two options to run the installer:
 
 3.a. Using BICs dynamic data from database
 
