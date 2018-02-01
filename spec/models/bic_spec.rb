@@ -29,4 +29,19 @@ describe Bic, :db do
     let(:bic_code) { "fsd234asd" }
     it { is_expected.to be_invalid }
   end
+
+  context "when bic starts with a valid BIC" do
+    let(:bic_code) { "ABCDESMMX" }
+    it { is_expected.to be_invalid }
+  end
+
+  context "when bic ends with a valid BIC" do
+    let(:bic_code) { "1ABCDESMM" }
+    it { is_expected.to be_invalid }
+  end
+
+  context "when bic contains a valid BIC inside" do
+    let(:bic_code) { "1ABCDESMMX" }
+    it { is_expected.to be_invalid }
+  end
 end

@@ -10,7 +10,7 @@ module ActiveModel
     class BicValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
         country_field = options[:country] ? record[options[:country]] : "[A-Z]{2}"
-        unless /[A-Z]{4}#{country_field}[0-9A-Z]{2,5}/.match? value.upcase
+        unless /^[A-Z]{4}#{country_field}[0-9A-Z]{2}([0-9A-Z]{3})?$/.match? value.upcase
           record.errors.add(attribute, :invalid_format)
         end
       end
