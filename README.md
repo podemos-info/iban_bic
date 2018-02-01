@@ -140,6 +140,10 @@ $ bundle exec rails generate iban_bic:install --with-static-data
 4. Customize initializer if needed, adding validations for new countries, or overriding YAML files.
 
 ## Changelog
+#### 1.4.1
+
+* Fixed BIC validation, don't allow less 1 or 2 characters for the office code and don't allow to add extra characters at the begining or at the end of the string.
+
 #### 1.4.0
 
 * BIC validation moved from BIC model to an independent validator.

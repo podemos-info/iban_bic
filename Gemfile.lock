@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iban_bic (1.4.0)
+    iban_bic (1.4.1)
       rails (~> 5.1)
       regexp-examples (~> 1.3)
 
