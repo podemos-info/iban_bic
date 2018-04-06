@@ -183,7 +183,7 @@ DEPENDENCIES
   generator_spec (~> 0.9.3)
   iban_bic!
   rspec-rails (~> 3.6)
-  rubocop (~> 0.50)
+  rubocop (~> 0.54.0)
   sqlite3 (~> 1.3)
   virtus (~> 1.0)
 

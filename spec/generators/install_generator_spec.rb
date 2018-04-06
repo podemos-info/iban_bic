@@ -2,11 +2,11 @@
 
 require "rails_helper"
 require "generator_spec/test_case"
-require File.expand_path("../../../lib/generators/iban_bic/install_generator", __FILE__)
+require File.expand_path("../../lib/generators/iban_bic/install_generator", __dir__)
 
 RSpec.describe IbanBic::InstallGenerator, type: :generator do
   include GeneratorSpec::TestCase
-  destination File.expand_path("../tmp", __FILE__)
+  destination File.expand_path("tmp", __dir__)
 
   after(:all) { prepare_destination } # cleanup the tmp directory
 
