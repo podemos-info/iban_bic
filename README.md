@@ -132,7 +132,7 @@ $ bundle exec rake iban_bic:load_data
 3.b. Using static data from YAML files
 
 Create an initializer file for configuration:
-  
+
 ```bash
 $ bundle exec rails generate iban_bic:install --with-static-data
 ```
@@ -140,6 +140,10 @@ $ bundle exec rails generate iban_bic:install --with-static-data
 4. Customize initializer if needed, adding validations for new countries, or overriding YAML files.
 
 ## Changelog
+#### 1.4.3
+
+* Fixed validators to avoid failing when values are `nil`.
+
 #### 1.4.2
 
 * Dependencies security update.

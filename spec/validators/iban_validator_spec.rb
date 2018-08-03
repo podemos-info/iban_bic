@@ -28,6 +28,11 @@ describe ActiveModel::Validations::IbanValidator do
 
   it { is_expected.to be_valid }
 
+  context "when value is not present" do
+    let(:iban) { nil }
+    it { is_expected.to be_valid }
+  end
+
   context "when invalid check digits" do
     let(:iban_digits) { "00" }
     it { is_expected.to be_invalid }

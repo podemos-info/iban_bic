@@ -9,6 +9,8 @@ module ActiveModel
   module Validations
     class IbanValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
+        return unless value.present?
+
         if !IbanBic.parse(value)
           record.errors.add(attribute, :invalid_format)
         elsif !IbanBic.valid_check?(value)
