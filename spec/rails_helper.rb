@@ -36,4 +36,4 @@ RSpec.configure do |config|
 end
 
 # Run any available migration
-ActiveRecord::Migrator.migrate File.expand_path("test_app/db/migrate/", __dir__)
+ActiveRecord::MigrationContext.new("test_app/db/migrate/").migrate
