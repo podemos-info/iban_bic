@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171002213441) do
+ActiveRecord::Schema.define(version: 2017_10_02_213441) do
 
   create_table "bics", force: :cascade do |t|
     t.string "country", null: false

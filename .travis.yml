@@ -6,4 +6,5 @@ env:
 - CI=true
 script:
  - bundle exec rubocop -c .rubocop.yml
+ - cd spec/test_app && bundle exec rails db:setup
  - bundle exec rspec
