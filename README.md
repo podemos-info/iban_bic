@@ -140,6 +140,10 @@ $ bundle exec rails generate iban_bic:install --with-static-data
 4. Customize initializer if needed, adding validations for new countries, or overriding YAML files.
 
 ## Changelog
+#### 1.4.4
+
+* Support for Rails 5.2.
+
 #### 1.4.3
 
 * Fixed validators to avoid failing when values are `nil`.
