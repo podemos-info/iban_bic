@@ -47,52 +47,52 @@ validates :bic, bic: { country: :pais }
 3. IBAN control digits calculation
 
 ```ruby
-2.4.1 :001 > IbanBic.calculate_check("ES0000030000300000000000")
+IbanBic.calculate_check("ES0000030000300000000000")
  => 87
 ```
 
 4. IBAN parsing
 
 ```ruby
-2.4.1 :001 > IbanBic.parse("ES8700030000300000000000")
+IbanBic.parse("ES8700030000300000000000")
 => {"country"=>"ES", "iban_check"=>"87", "bank"=>"0003", "branch"=>"0000", "check"=>"30", "account"=>"0000000000"}
 ```
 
 5. IBAN fixing (IBAN control digits and country control digits, if that code is available)
 
 ```ruby
-2.4.1 :001 > IbanBic.fix("ES0000030000200000000000")
+IbanBic.fix("ES0000030000200000000000")
  => "ES8700030000300000000000"
 ```
 
 6. BIC calculation (bank code must be in the static file or in the database)
 
 ```ruby
-2.4.1 :001 > IbanBic.calculate_bic("ES8700030000300000000000")
+IbanBic.calculate_bic("ES8700030000300000000000")
  => "BDEPESM1XXX"
 ```
 
 7. Pattern generation for SQL LIKE queries.
 
 ```ruby
-2.4.1 :001 > IbanBic.like_pattern("ES8700030000300000000000", :country, :bank)
+IbanBic.like_pattern("ES8700030000300000000000", :country, :bank)
  => "ES__0003________________"
-2.4.1 :002 > IbanBic.like_pattern_from_parts(country: "ES", bank: "0003")
+IbanBic.like_pattern_from_parts(country: "ES", bank: "0003")
  => "ES__0003________________"
 ```
 
 8. Random IBAN generation
 
 ```ruby
-2.4.1 :001 > require "iban_bic/random"
+require "iban_bic/random"
  => true
-2.4.1 :002 > IbanBic.random_iban
+IbanBic.random_iban
  => "MU52BOIR2768144336487102000AWQ"
-2.4.1 :003 > IbanBic.random_iban country: "ES"
+IbanBic.random_iban country: "ES"
  => "ES6111051493192369291292"
-2.4.1 :004 > IbanBic.random_iban tags: [:sepa]
+IbanBic.random_iban tags: [:sepa]
  => "FI5584518206233159"
-2.4.1 :005 > IbanBic.random_iban not_tags: [:sepa]
+IbanBic.random_iban not_tags: [:sepa]
  => "IL317532867920826062774"
 ```
 

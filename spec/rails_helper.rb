@@ -36,7 +36,9 @@ RSpec.configure do |config|
 end
 
 # Run any available migration
-if Rails.gem_version >= Gem::Version.new("5.2.0")
+if Rails.gem_version >= Gem::Version.new("6.0.0")
+  ActiveRecord::MigrationContext.new("db/migrate/", ActiveRecord::SchemaMigration).migrate
+elsif Rails.gem_version >= Gem::Version.new("5.2.0")
   ActiveRecord::MigrationContext.new("test_app/db/migrate/").migrate
 else
   ActiveRecord::Migrator.migrate("test_app/db/migrate/")
