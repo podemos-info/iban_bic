@@ -2,10 +2,11 @@
 
 source "https://rubygems.org"
 
-ruby "2.4.1"
+ruby "3.0.1"
 
 gem "iban_bic", path: "../.."
 gem "sqlite3"
+gem "rspec-core"
 
 group :development, :test do
   gem "byebug", platform: :mri

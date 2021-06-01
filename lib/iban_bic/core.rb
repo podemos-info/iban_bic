@@ -15,8 +15,8 @@ module IbanBic
     @configuration ||= Configuration.new
   end
 
-  def configure
-    configuration.instance_eval(&Proc.new)
+  def configure(&block)
+    configuration.instance_eval(&block)
   end
 
   def parse(iban)
